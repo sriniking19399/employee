@@ -51,7 +51,7 @@ public class EmployeeH2Service implements EmployeeRepository {
 
     @Override
     public Employee addEmployee(Employee employee) {
-        db.update("update into employeelist (employeeName,email,department) values(?,?,?)", employee.getEmployeeName(),
+        db.update("insert into employeelist (employeeName,email,department) values(?,?,?)", employee.getEmployeeName(),
                 employee.getEmail(), employee.getDepartment());
         return db.queryForObject("select * from employeelist where employeeName=? and email=? and department=?",
                 new EmployeeRowMapper(), employee.getEmployeeName(), employee.getEmail(), employee.getDepartment());
@@ -68,7 +68,7 @@ public class EmployeeH2Service implements EmployeeRepository {
             db.update("update employeelist set email=? where employeeId=?", employee.getEmail(), employeeId);
         }
         if (employee.getDepartment() != null) {
-            db.update("update employeelist set deprtment=? where employeeId=?", employee.getDepartment(), employeeId);
+            db.update("update employeelist set department=? where employeeId=?", employee.getDepartment(), employeeId);
         }
         return getEmployeeById(employeeId);
     }
